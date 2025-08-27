@@ -1,0 +1,131 @@
+<div class="training-container">
+  <div class="header-section">
+	<span class="main-title">Check out the latest trainings</span>
+    <div class="search-section">
+      <div class="search-container">
+        <input 
+          type="text" 
+          class="search-input"
+          placeholder="Search trainings..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearch($event)"
+        />
+        <i class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="training-grid">
+    @for (training of filteredTrainings; track training.id) {
+      <div 
+        class="training-card">
+      <div class="card-content">
+        <!-- Left Section -->
+        <div class="left-section">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="header-content">
+			   @if (training.isNewlyAdded) {
+           			<span class="badge text-bg-success">New</span>
+        		}
+              <h2 class="training-title">{{ training.header }} </h2>  
+              <h3 class="training-subtitle">{{ training.subheader }}</h3>
+            </div>
+          </div>
+
+          <!-- Company & Context -->
+          <div class="company-section">
+            <div class="company-info">
+              <span class="company-name">{{ training.company }}</span>
+              <span class="context">{{ training.context }}</span>
+            </div>
+            <div class="category-tag">{{ training.category }}</div>
+          </div>
+
+          <!-- Description -->
+          <div class="description">
+            <p>{{ training.description }}</p>
+          </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+          <!-- Training Details -->
+          <div class="training-details">
+            <div class="detail-group">
+			@if (training.eventDate) {
+              <div class="detail-row">
+                <span class="label">Event Date</span>
+                <span class="value">{{ training.eventDate | date:'MMM dd, yyyy' }}</span>
+              </div>
+			}
+			@if (training.duration) {
+              <div class="detail-row">
+                <span class="label">Duration</span>
+                <span class="value">{{ training.duration }}</span>
+              </div>
+			}
+			@if (training.registrationDeadline) {
+              <div class="detail-row">
+                <span class="label">Deadline</span>
+                <span class="value">{{ training.registrationDeadline | date:'MMM dd, yyyy' }}</span>
+              </div>
+			}
+              @if (training.capacity) {
+                <div class="detail-row">
+                  <span class="label">Capacity</span>
+                  <span class="value">{{ training.capacity }} spots</span>
+                </div>
+              }
+			@if (training.submissionDeadline) {
+                <div class="detail-row">
+                  <span class="label">Submission Deadline</span>
+                  <span class="value">{{ training.submissionDeadline | date:'MMM dd, yyyy' }}</span>
+                </div>
+              }
+            </div>
+            
+            <div class="deadline-status">
+              <span class="status-text" 
+                    [class.critical]="getDaysUntilDeadline(training.registrationDeadline) <= 3"
+                    [class.warning]="getDaysUntilDeadline(training.registrationDeadline) <= 7 && getDaysUntilDeadline(training.registrationDeadline) > 3">
+                {{ getDaysUntilDeadline(training.registrationDeadline) }} days left to register
+              </span>
+            </div>
+          </div>
+
+          <!-- Registration Action -->
+          <div class="card-footer">
+            <button 
+              class="register-btn"
+              (click)="onRegister(training)"
+              [disabled]="getDaysUntilDeadline(training.registrationDeadline) < 0">
+              @if (getDaysUntilDeadline(training.registrationDeadline) >= 0) {
+                <span>Register Here</span>
+              } @else {
+                <span>Closed</span>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress indicator for registration deadline -->
+      <div class="deadline-progress">
+        <div class="progress-bar" 
+             [style.width.%]="100 - (getDaysUntilDeadline(training.registrationDeadline) * 10)">
+        </div>
+      </div>
+      </div>
+    }
+  </div>
+
+  <!-- Empty State -->
+  @if (trainings.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon"><i class="fa-solid fa-folder-closed"></i></div>
+      <h3>No Training Programs Available</h3>
+      <p>Check back soon for new professional development opportunities!</p>
+    </div>
+  }
+</div>
