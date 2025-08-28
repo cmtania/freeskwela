@@ -13,4 +13,5 @@ export interface Training {
   category: string;
   capacity?: number;
   isNewlyAdded: boolean;
+  createdDate: string;
 }

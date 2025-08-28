@@ -7,7 +7,7 @@ import { catchError, concatMap, Observable, of } from "rxjs";
 })
 export class DataService {
 
-  private baseUrl = 'https://freeskwela.free.beeceptor.com';
+  private baseUrl = 'https://freeskwela-api.vercel.app';
   constructor(private readonly _httpClient: HttpClient) {}
 
   getTrainings() {

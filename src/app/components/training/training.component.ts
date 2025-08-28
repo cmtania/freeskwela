@@ -29,13 +29,29 @@ export class TrainingComponent implements OnInit {
       tap((resp: any) => {
         if (resp) {
           this.trainings = resp;
-          this.filteredTrainings = resp; // Initialize filtered trainings
+          this.sortMainTrainingsByDeadline();
+          this.filteredTrainings = [...this.trainings]; // Initialize filtered trainings
           return;
         }
       }),
       finalize(() => {
       })
     ).subscribe();
+  }
+
+  sortMainTrainingsByDeadline(): void {
+    this.trainings.sort((a, b) => {
+      const daysA = this.getDaysUntilDeadline(a.registrationDeadline);
+      const daysB = this.getDaysUntilDeadline(b.registrationDeadline);
+      
+      // Sort by days remaining (ascending - smallest first)
+      // Handle expired deadlines (negative days) by putting them at the end
+      if (daysA < 0 && daysB >= 0) return 1;
+      if (daysB < 0 && daysA >= 0) return -1;
+      if (daysA < 0 && daysB < 0) return daysB - daysA; // Most recently expired first
+      
+      return daysA - daysB; // Normal ascending sort for positive days
+    });
   }
 
   onSearch(event: any): void {
@@ -46,20 +62,37 @@ export class TrainingComponent implements OnInit {
 
   filterTrainings(): void {
     if (!this.searchTerm) {
-      this.filteredTrainings = this.trainings;
-      return;
+      this.filteredTrainings = [...this.trainings];
+    } else {
+      this.filteredTrainings = this.trainings.filter(training => {
+        return (
+          training.header?.toLowerCase().includes(this.searchTerm) ||
+          training.subheader?.toLowerCase().includes(this.searchTerm) ||
+          training.company?.toLowerCase().includes(this.searchTerm) ||
+          training.context?.toLowerCase().includes(this.searchTerm) ||
+          training.description?.some(desc => desc.toLowerCase().includes(this.searchTerm)) ||
+          training.category?.toLowerCase().includes(this.searchTerm) ||
+          training.duration?.toLowerCase().includes(this.searchTerm)
+        );
+      });
     }
+    
+    // Sort filtered results by deadline
+    this.sortTrainingsByDeadline();
+  }
 
-    this.filteredTrainings = this.trainings.filter(training => {
-      return (
-        training.header?.toLowerCase().includes(this.searchTerm) ||
-        training.subheader?.toLowerCase().includes(this.searchTerm) ||
-        training.company?.toLowerCase().includes(this.searchTerm) ||
-        training.context?.toLowerCase().includes(this.searchTerm) ||
-        // training.description?.toLowerCase().includes(this.searchTerm) ||
-        training.category?.toLowerCase().includes(this.searchTerm) ||
-        training.duration?.toLowerCase().includes(this.searchTerm)
-      );
+  sortTrainingsByDeadline(): void {
+    this.filteredTrainings.sort((a, b) => {
+      const daysA = this.getDaysUntilDeadline(a.registrationDeadline);
+      const daysB = this.getDaysUntilDeadline(b.registrationDeadline);
+      
+      // Sort by days remaining (ascending - smallest first)
+      // Handle expired deadlines (negative days) by putting them at the end
+      if (daysA < 0 && daysB >= 0) return 1;
+      if (daysB < 0 && daysA >= 0) return -1;
+      if (daysA < 0 && daysB < 0) return daysB - daysA; // Most recently expired first
+      
+      return daysA - daysB; // Normal ascending sort for positive days
     });
   }
 
