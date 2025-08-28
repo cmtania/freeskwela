@@ -1,6 +1,6 @@
 <div class="training-container">
   <div class="header-section">
-	<span class="main-title">Check out the latest trainings</span>
+	<span class="main-title">Explore the latest events!</span>
     <div class="search-section">
       <div class="search-container">
         <input 
@@ -44,7 +44,9 @@
 
           <!-- Description -->
           <div class="description">
-            <p>{{ training.description }}</p>
+            @for (desc of training.description; track desc) {
+              <p>{{ desc }}</p>
+            }
           </div>
         </div>
 
@@ -53,35 +55,35 @@
           <!-- Training Details -->
           <div class="training-details">
             <div class="detail-group">
-			@if (training.eventDate) {
-              <div class="detail-row">
-                <span class="label">Event Date</span>
-                <span class="value">{{ training.eventDate | date:'MMM dd, yyyy' }}</span>
-              </div>
-			}
-			@if (training.duration) {
-              <div class="detail-row">
-                <span class="label">Duration</span>
-                <span class="value">{{ training.duration }}</span>
-              </div>
-			}
-			@if (training.registrationDeadline) {
-              <div class="detail-row">
-                <span class="label">Deadline</span>
-                <span class="value">{{ training.registrationDeadline | date:'MMM dd, yyyy' }}</span>
-              </div>
-			}
-              @if (training.capacity) {
-                <div class="detail-row">
-                  <span class="label">Capacity</span>
-                  <span class="value">{{ training.capacity }} spots</span>
-                </div>
+              @if (training.eventDate) {
+                      <div class="detail-row">
+                        <span class="label">Event Date</span>
+                        <span class="value">{{ training.eventDate | date:'MMM dd, yyyy' }}</span>
+                      </div>
               }
-			@if (training.submissionDeadline) {
-                <div class="detail-row">
-                  <span class="label">Submission Deadline</span>
-                  <span class="value">{{ training.submissionDeadline | date:'MMM dd, yyyy' }}</span>
-                </div>
+              @if (training.duration) {
+                      <div class="detail-row">
+                        <span class="label">Duration</span>
+                        <span class="value">{{ training.duration }}</span>
+                      </div>
+              }
+              @if (training.registrationDeadline) {
+                      <div class="detail-row">
+                        <span class="label">Deadline</span>
+                        <span class="value">{{ training.registrationDeadline | date:'MMM dd, yyyy' }}</span>
+                      </div>
+              }
+              @if (training.capacity) {
+                      <div class="detail-row">
+                          <span class="label">Capacity</span>
+                          <span class="value">{{ training.capacity }} spots</span>
+                      </div>
+              }
+              @if (training.submissionDeadline) {
+                        <div class="detail-row">
+                          <span class="label">Submission Deadline</span>
+                          <span class="value">{{ training.submissionDeadline | date:'MMM dd, yyyy' }}</span>
+                        </div>
               }
             </div>
             

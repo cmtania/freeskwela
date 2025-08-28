@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import { AnnouncementComponent } from '../announcement/announcement.component';
 import { CountStatusComponent } from "../count-status/count-status.component";
 import { TrainingComponent } from '../training/training.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-layout.component',
   standalone: true,
   imports: [
     CommonModule,
-    HttpClientModule,
     AnnouncementComponent,
     CountStatusComponent,
     CountStatusComponent,

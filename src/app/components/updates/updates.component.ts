@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class UpdatesComponent {
  updates: string[] = [
-    'We have 2 new hackathons to attend! Check them out!',
+    'New training programs added regularly. Stay tuned for updates!',
   ];
 }

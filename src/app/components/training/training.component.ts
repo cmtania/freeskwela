@@ -56,7 +56,7 @@ export class TrainingComponent implements OnInit {
         training.subheader?.toLowerCase().includes(this.searchTerm) ||
         training.company?.toLowerCase().includes(this.searchTerm) ||
         training.context?.toLowerCase().includes(this.searchTerm) ||
-        training.description?.toLowerCase().includes(this.searchTerm) ||
+        // training.description?.toLowerCase().includes(this.searchTerm) ||
         training.category?.toLowerCase().includes(this.searchTerm) ||
         training.duration?.toLowerCase().includes(this.searchTerm)
       );

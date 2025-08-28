@@ -2,6 +2,7 @@
 
 .container {
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
     background: #ffffff;
     border: 1px solid #e0e0e0;
@@ -9,19 +10,98 @@
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     font-family: 'Inter', sans-serif;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding: 0;
+    
+    // Mobile responsive adjustments
+    @media (max-width: 768px) {
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    @media (max-width: 480px) {
+        margin: 5px;
+        border-radius: 6px;
+    }
 }
 
 
 .header {
-    color: #1a1a1a;
-    padding: 40px 30px;
-    text-align: center;
-    background: #99b19c;
-    color: white;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #1e293b;
+    padding: 2rem;
+    text-align: left;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e2e8f0;
 }
 
+.logo-section {
+    max-width: 100%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.logo-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    flex-shrink: 0;
+
+    .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: white;
+        letter-spacing: -1px;
+    }
+}
+
+.brand-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.025em;
+}
+
+.brand-tagline {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: -0.25rem;
+}
+
+.header-description {
+    margin-top: 0.5rem;
+
+    p {
+        font-size: 1.125rem;
+        color: #475569;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+}
 
 .announcement-section {
     padding: 30px;
@@ -69,17 +149,98 @@
     }
 }
 
-
-
-
 @media (max-width: 768px) {
     .container {
         margin: 20px;
         border-radius: 8px;
     }
 
-    .training-section {
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .logo-container {
+        gap: 0.75rem;
+    }
+    
+    .logo-icon {
+        width: 50px;
+        height: 50px;
+
+        .logo-text {
+            font-size: 20px;
+        }
+    }
+    
+    .brand-name {
+        font-size: 2rem;
+    }
+    
+    .header-description p {
+        font-size: 1rem;
+    }
+
+    .announcement-section {
         padding: 20px;
     }
 
+    .training-section {
+        padding: 20px;
+    }
+}
+
+// Small mobile devices
+@media (max-width: 480px) {
+    .container {
+        margin: 10px;
+        border-radius: 6px;
+    }
+
+    .header {
+        padding: 1rem;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+
+        .logo-text {
+            font-size: 18px;
+        }
+    }
+    
+    .brand-name {
+        font-size: 1.75rem;
+    }
+    
+    .header-description p {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .announcement-section {
+        padding: 15px;
+    }
+
+    .training-section {
+        padding: 15px;
+    }
+}
+
+// Large screens
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px;
+    }
+    
+    .header {
+        padding: 2.5rem;
+    }
 }

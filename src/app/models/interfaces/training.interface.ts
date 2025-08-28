@@ -4,7 +4,7 @@ export interface Training {
   subheader: string;
   company: string;
   context: string;
-  description: string;
+  description: Array<string>;
   registrationDeadline: string;
   submissionDeadline: string;
   eventDate: string;
