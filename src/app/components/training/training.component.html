@@ -17,30 +17,30 @@
 
   <div class="training-grid">
     @for (training of filteredTrainings; track training.id) {
-      <div 
-        class="training-card">
+      <div class="training-card">
       <div class="card-content">
         <!-- Left Section -->
         <div class="left-section">
           <!-- Card Header -->
           <div class="card-header">
             <div class="header-content">
-			   @if (training.isNewlyAdded) {
+			      <!-- @if (training.isNewlyAdded) {
            			<span class="badge text-bg-success">New</span>
-        		}
+        		} -->
+                      <!-- Company & Context -->
+          <div class="company-section">
+            <div class="company-info">
+              <span class="company-name">{{ training.company }}</span>
+              <!-- <span class="context">{{ training.context }}</span> -->
+            </div>
+            <div class="category-tag">{{ training.category }}</div>
+          </div>
+
               <h2 class="training-title">{{ training.header }} </h2>  
               <h3 class="training-subtitle">{{ training.subheader }}</h3>
             </div>
           </div>
 
-          <!-- Company & Context -->
-          <div class="company-section">
-            <div class="company-info">
-              <span class="company-name">{{ training.company }}</span>
-              <span class="context">{{ training.context }}</span>
-            </div>
-            <div class="category-tag">{{ training.category }}</div>
-          </div>
 
           <!-- Description -->
           <div class="description">
@@ -55,10 +55,25 @@
           <!-- Training Details -->
           <div class="training-details">
             <div class="detail-group">
-              @if (training.eventDate) {
+              @if (training.sourceLink) {
+                        <div class="detail-row">
+                          <span class="label">Source</span>
+                          <span class="value">
+                            <a href="{{ training.sourceLink }}" target="_blank" class="facebook-btn">Facebook Link</a>
+                          </span>
+                        </div>
+              }
+              @if (training.eventDateFrom && training.eventDateTo === "") {
                       <div class="detail-row">
                         <span class="label">Event Date</span>
-                        <span class="value">{{ training.eventDate | date:'MMM dd, yyyy' }}</span>
+                        <span class="value">{{ training.eventDateFrom | date:'MMM dd, yyyy' }}</span>
+                      </div>
+              }
+
+              @if (training.eventDateFrom && training.eventDateTo) {
+                      <div class="detail-row">
+                        <span class="label">Event Date</span>
+                        <span class="value">{{ training.eventDateFrom | date:'MMM dd, yyyy' }} - {{ training.eventDateTo | date:'MMM dd, yyyy' }}</span>
                       </div>
               }
               @if (training.duration) {
@@ -85,6 +100,15 @@
                           <span class="value">{{ training.submissionDeadline | date:'MMM dd, yyyy' }}</span>
                         </div>
               }
+
+               @if (training.submissionDeadline) {
+                        <div class="detail-row">
+                          <span class="label">Submission Deadline</span>
+                          <span class="value">{{ training.submissionDeadline | date:'MMM dd, yyyy' }}</span>
+                        </div>
+              }
+
+    
             </div>
             
             <div class="deadline-status">

@@ -7,8 +7,10 @@ export interface Training {
   description: Array<string>;
   registrationDeadline: string;
   submissionDeadline: string;
-  eventDate: string;
+  eventDateFrom: string;
+  eventDateTo: string;
   link: string;
+  sourceLink: string;
   duration: string;
   category: string;
   capacity?: number;
